@@ -150,7 +150,7 @@ public class Tste {
         // Adicionando os parâmetros  
         nameValuePairs.add(new BasicNameValuePair("origem", "comprovante"));  
         nameValuePairs.add(new BasicNameValuePair("search_type", "cnpj"));  
-        nameValuePairs.add(new BasicNameValuePair("cnpj", "83648477001853"));    
+        nameValuePairs.add(new BasicNameValuePair("cnpj", "8264716501196"));    
         nameValuePairs.add(new BasicNameValuePair("txtTexto_captcha_serpro_gov_br", receitaFederalConsulta.getCaptcha().toLowerCase()));
         nameValuePairs.add(new BasicNameValuePair("submit1", "Consultar"));
         // Encapsulando  
