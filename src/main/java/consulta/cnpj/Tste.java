@@ -16,22 +16,24 @@ import javax.swing.text.html.HTMLDocument;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
-import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.xerces.impl.dv.util.Base64;
+import org.htmlparser.lexer.Source;
+import org.htmlparser.lexer.StringSource;
 
-import com.gargoylesoftware.htmlunit.util.StringUtils;
+import net.sourceforge.htmlunit.corejs.javascript.json.JsonParser;
 
 public class Tste {
 
@@ -52,8 +54,13 @@ public class Tste {
 	}
     
     public static void init() {
-        // Criando o cliente  
-        cliente = HttpClientBuilder.create();  
+    	RequestConfig.Builder requestBuilder = RequestConfig.custom();
+    	requestBuilder = requestBuilder.setConnectTimeout(1000000000*10000).setSocketTimeout(1000000000*10000).setConnectionRequestTimeout(1000000000*10000);
+
+    	// Criando o cliente  
+    	cliente = HttpClientBuilder.create();  
+    	cliente.setDefaultRequestConfig(requestBuilder.build());
+    	
         // Adicionando um sistema de redireção  
         cliente.setRedirectStrategy(new LaxRedirectStrategy());
         // Mantendo a conexão sempre ativa  
@@ -63,7 +70,7 @@ public class Tste {
         // Criando o contexto de conexão  
         contexto = new BasicHttpContext();  
         // Adicionando o coockie store no contexto de conexão
-        contexto.setAttribute(ClientContext.COOKIE_STORE, cookie);
+        contexto.setAttribute(HttpClientContext.COOKIE_STORE, cookie);
     }
 
     public static ReceitaFederalConsulta getFormInfo() {
@@ -137,7 +144,7 @@ public class Tste {
     }
     public static ReceitaFederalConsulta getValues(ReceitaFederalConsulta receitaFederalConsulta) throws Exception {
         // Criando o método de acesso  
-        HttpPost requisicao3 = new HttpPost("http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/valida.asp");  
+        HttpPost requisicao3 = new HttpPost("http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/valida.asp");
         // Lista de parâmetros  
         List<NameValuePair> nameValuePairs = new ArrayList<>();
         // Adicionando os parâmetros  
@@ -157,9 +164,22 @@ public class Tste {
         HttpEntity entidade = resposta.getEntity();  
         // Transformando o conteúdo em uma string  
         String html = EntityUtils.toString(entidade);
+        
+        String sourceUrlString="data/test.html";
+        if (html.length()==0)
+          System.err.println("Using default argument of \""+sourceUrlString+'"');
+        else
+            sourceUrlString=html;
+        if (sourceUrlString.indexOf(':')==-1) sourceUrlString="file:"+sourceUrlString;
+        Source source=new StringSource(html);
+        String renderedText=source.getEncoding().toString();
+        System.out.println("\nSimple rendering of the HTML document:\n");
+        System.out.println(renderedText);
+        
         System.out.println(html);
         // Busco o documento estruturado  
-        HTMLDocument document = DocumentoHtml.getHTMLDocument(html);  
+        HTMLDocument document = DocumentoHtml.getHTMLDocument(html); 
+        System.out.println(html.replaceAll("\\<.*?>.",""));
         // Busco todos os elementos em forma de iterador  
         ElementIterator elementIterator = new ElementIterator(document);
         setValues(elementIterator, receitaFederalConsulta);
