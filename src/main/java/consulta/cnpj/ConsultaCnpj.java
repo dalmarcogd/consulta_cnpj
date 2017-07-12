@@ -1,11 +1,16 @@
 package consulta.cnpj;
 
+import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.text.Element;
 import javax.swing.text.ElementIterator;
 import javax.swing.text.html.HTML;
@@ -82,7 +87,8 @@ public class ConsultaCnpj {
             // Se for um img
             if (element.getName().equals(HTML.Tag.IMG.toString()) && ((String) element.getAttributes().getAttribute(HTML.Attribute.ID)).equalsIgnoreCase("imgcaptcha")) {
                 // Passo para a variável o valor do imgcaptcha
-                imgcaptcha = "http://www.receita.fazenda.gov.br" + ((String) element.getAttributes().getAttribute(HTML.Attribute.SRC)).replaceAll("amp", "");
+//                imgcaptcha = "http://www.receita.fazenda.gov.br" + ((String) element.getAttributes().getAttribute(HTML.Attribute.SRC)).replaceAll("amp", "");
+            	imgcaptcha = "http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/captcha/gerarCaptcha.asp";
             }
         }
         // Crio a segunda requisição
@@ -98,9 +104,17 @@ public class ConsultaCnpj {
         // Buscando a entidade
         entidade = resposta.getEntity();
         try {
-            // Esse código CRIA A IMAGEM DO CAPTCHA
-            new ImageIcon(EntityUtils.toByteArray(entidade));
             // Dê algum jeito de mostrar isso para o usuário e pegar o retorno
+            JFrame frame = new JFrame();
+            // Esse código CRIA A IMAGEM DO CAPTCHA
+	        JLabel label = new JLabel(new ImageIcon(EntityUtils.toByteArray(entidade)));
+	        frame.getContentPane().add(label, BorderLayout.CENTER);
+	        frame.pack();
+	        frame.setVisible(true);
+	        //entrada do texto do captcha
+	        captcha = JOptionPane.showInputDialog("Digite o captcha");
+	        frame.setVisible(false);
+	        frame = null;
         } catch (IOException exception) {
             // Ocultado
         }

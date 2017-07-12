@@ -20,7 +20,7 @@ public class DocumentoHtml {
      * @param html
      * @return documento HTML ou nulo
      */
-    public HTMLDocument getHTMLDocument(String html) {
+    public static HTMLDocument getHTMLDocument(String html) {
         HTMLEditorKit editorKit = new HTMLEditorKit();
         HTMLDocument document = (HTMLDocument) editorKit.createDefaultDocument();
         document.putProperty("IgnoreCharsetDirective", Boolean.TRUE);
