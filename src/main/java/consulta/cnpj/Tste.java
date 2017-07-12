@@ -24,6 +24,7 @@ import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
@@ -34,7 +35,7 @@ import com.gargoylesoftware.htmlunit.util.StringUtils;
 
 public class Tste {
 
-	private static DefaultHttpClient cliente;
+	private static HttpClientBuilder cliente;
     private static BasicCookieStore cookie;
     private static BasicHttpContext contexto;
     private static HttpResponse resposta;
@@ -52,7 +53,7 @@ public class Tste {
     
     public static void init() {
         // Criando o cliente  
-        cliente = new DefaultHttpClient();  
+        cliente = HttpClientBuilder.create();  
         // Adicionando um sistema de redireção  
         cliente.setRedirectStrategy(new LaxRedirectStrategy());
         // Mantendo a conexão sempre ativa  
@@ -71,7 +72,7 @@ public class Tste {
             // Criando o método de acesso  
             HttpGet requisicao1 = new HttpGet("http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/cnpjreva_solicitacao2.asp");
             // Resposta
-            resposta = cliente.execute(requisicao1, contexto);
+            resposta = cliente.build().execute(requisicao1, contexto);
             // Buscando a entidade
             HttpEntity entidade = resposta.getEntity();
             // Transformando o conteúdo em uma string
@@ -103,13 +104,16 @@ public class Tste {
             // Crio a segunda requisição  
             HttpGet requisicao2 = new HttpGet("http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/captcha/gerarCaptcha.asp");
             // resposta
-            resposta = cliente.execute(requisicao2, contexto);  
+            
+            resposta = cliente.build().execute(requisicao2, contexto);
+            
             // Buscando a entidade  
             entidade = resposta.getEntity();
             // obtendo os bytes da imagem
             byte[] captcha = EntityUtils.toByteArray(entidade);
-            // converte os bytes da imagem para base64
-            String captchaBase64 = new Base64().encode(captcha);
+            new Base64();
+			// converte os bytes da imagem para base64
+            String captchaBase64 = Base64.encode(captcha);
             // atribui o valor da imagem ao objeto que sera reotnrado
             receitaFederalConsulta.setImagemCaptcha(captchaBase64);
             
@@ -148,11 +152,11 @@ public class Tste {
         // definindo a entidade
         requisicao3.setEntity(urlEncodedFormEntity);  
         // resposta
-        resposta = cliente.execute(requisicao3, contexto);  
+        resposta = cliente.build().execute(requisicao3, contexto);  
         // Buscando a entidade  
         HttpEntity entidade = resposta.getEntity();  
         // Transformando o conteúdo em uma string  
-        String html = EntityUtils.toString(entidade);  
+        String html = EntityUtils.toString(entidade);
         System.out.println(html);
         // Busco o documento estruturado  
         HTMLDocument document = DocumentoHtml.getHTMLDocument(html);  
