@@ -6,7 +6,7 @@ import consulta.cnpj.model.Fornecedor;
  * Classe responsável por consultar o CNPJ.
  *  
  */
-public class ConsultaCNPJController {
+public final class ConsultaCNPJController {
 
 	public Fornecedor consultaSefaz(String cnpj, String certificadoDigital) throws Exception {
 		return null;
