@@ -33,6 +33,7 @@ import org.apache.xerces.impl.dv.util.Base64;
 import org.htmlparser.lexer.Source;
 import org.htmlparser.lexer.StringSource;
 
+import consulta.cnpj.controller.site.receita.ReceitaFederalConsulta;
 import net.sourceforge.htmlunit.corejs.javascript.json.JsonParser;
 
 public class Tste {
@@ -122,7 +123,7 @@ public class Tste {
 			// converte os bytes da imagem para base64
             String captchaBase64 = Base64.encode(captcha);
             // atribui o valor da imagem ao objeto que sera reotnrado
-            receitaFederalConsulta.setImagemCaptcha(captchaBase64);
+            receitaFederalConsulta.setCaptchaBase64(captchaBase64);
             
             // Dê algum jeito de mostrar isso para o usuário e pegar o retorno
             JFrame frame = new JFrame();
@@ -136,7 +137,7 @@ public class Tste {
 	        frame.setVisible(false);
 	        frame = null;
             
-            receitaFederalConsulta.setCaptcha(captchaStr);
+            receitaFederalConsulta.setRespostaCaptcha(captchaStr);
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -151,7 +152,7 @@ public class Tste {
         nameValuePairs.add(new BasicNameValuePair("origem", "comprovante"));  
         nameValuePairs.add(new BasicNameValuePair("search_type", "cnpj"));  
         nameValuePairs.add(new BasicNameValuePair("cnpj", "8264716501196"));    
-        nameValuePairs.add(new BasicNameValuePair("txtTexto_captcha_serpro_gov_br", receitaFederalConsulta.getCaptcha().toLowerCase()));
+        nameValuePairs.add(new BasicNameValuePair("txtTexto_captcha_serpro_gov_br", receitaFederalConsulta.getRespostaCaptcha().toLowerCase()));
         nameValuePairs.add(new BasicNameValuePair("submit1", "Consultar"));
         // Encapsulando  
         UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
