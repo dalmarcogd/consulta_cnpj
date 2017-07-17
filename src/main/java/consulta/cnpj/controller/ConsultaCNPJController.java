@@ -1,5 +1,8 @@
 package consulta.cnpj.controller;
 
+import consulta.cnpj.controller.receita.ws.ConsultaReceitaWS;
+import consulta.cnpj.controller.sefaz.ConsultaReceitaSefaz;
+import consulta.cnpj.controller.site.receita.ConsultaReceitaSite;
 import consulta.cnpj.model.Fornecedor;
 
 /**
@@ -8,22 +11,40 @@ import consulta.cnpj.model.Fornecedor;
  */
 public final class ConsultaCNPJController {
 
-	public Fornecedor consultaSefaz(String cnpj, String certificadoDigital) throws Exception {
-		return null;
+	/**
+	 * Realiza a consulta no site do sefaz
+	 */
+	public Fornecedor consultaSefaz(String cnpj, String certificadoDigital, String url) throws Exception {
+		ConsultaReceitaSefaz consultaReceitaSite = new ConsultaReceitaSefaz(certificadoDigital);
+		return consultaReceitaSite.consulta(cnpj);
 	}
 	
+	/**
+	 * Realiza a consulta no site https://receitaws.com.br/
+	 */
 	public Fornecedor consultaReceitaWS(String cnpj) throws Exception {
-		return null;
+		ConsultaReceitaWS consultaReceitaWS = new ConsultaReceitaWS();
+		return consultaReceitaWS.consulta(cnpj);
 	}
 	
+	/**
+	 * Realiza a consulta no site da receita.
+	 */
 	public Fornecedor consultaSiteReceita(String cnpj) throws Exception {
-		return null;
+		ConsultaReceitaSite consultaReceitaSite = new ConsultaReceitaSite();
+		return consultaReceitaSite.consulta(cnpj);
 	}
 	
-	public Fornecedor consulta(String cnpj, String certificadoDigital) {
+	/**
+	 * Realiza todas as consultas até encontrar o fornecedor.
+	 * 1 - Sefaz se existir ceritifcado digital.
+	 * 2 - ReceitaWS, serviço privado.
+	 * 3 - Site da receita porem solicita captcha. 
+	 */
+	public Fornecedor consulta(String cnpj, String certificadoDigital, String url) {
 		Fornecedor consultaFornecedor = null;
 		try {
-			consultaFornecedor = this.consultaSefaz(cnpj, certificadoDigital);
+			consultaFornecedor = this.consultaSefaz(cnpj, certificadoDigital, url);
 			if (consultaFornecedor != null) {
 				return consultaFornecedor;
 			}

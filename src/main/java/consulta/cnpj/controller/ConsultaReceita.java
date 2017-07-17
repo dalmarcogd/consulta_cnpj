@@ -4,5 +4,5 @@ import consulta.cnpj.model.Fornecedor;
 
 public interface ConsultaReceita {
 
-	public Fornecedor consulta(String cnpj, String... param); 
+	public Fornecedor consulta(String cnpj); 
 }
