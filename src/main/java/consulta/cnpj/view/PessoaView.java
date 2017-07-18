@@ -1,6 +1,7 @@
 package consulta.cnpj.view;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -48,23 +49,27 @@ public class PessoaView {
 		
 		
 		JLabel lbCNPJ = new JLabel("CNPJ:");
-		addComponent(lbCNPJ, 0, 0, 1, 1, GridBagConstraints.HORIZONTAL);
-		
+		addComponent(lbCNPJ, 0, 0, 1, 1, GridBagConstraints.EAST);
 		tfCNPJ = new JTextField();
-		addComponent(tfCNPJ, 0, 2, 3, 1, GridBagConstraints.HORIZONTAL);
+		tfCNPJ.setPreferredSize(new Dimension(200, 20));
+		addComponent(tfCNPJ, 0, 1, 3, 1, GridBagConstraints.WEST);
+		
+		JLabel lbNomeFantasia = new JLabel("Nome fantasia:");
+		addComponent(lbNomeFantasia, 1, 0, 1, 1, GridBagConstraints.EAST);
 		tfNomeFantasia = new JTextField();
-		addComponent(tfCNPJ, 1, 2, 3, 1, GridBagConstraints.HORIZONTAL);
-		tfRazaoSocial = new JTextField();
-		addComponent(tfCNPJ, 2, 2, 3, 1, GridBagConstraints.HORIZONTAL);
-		tfRua = new JTextField();
-		addComponent(tfCNPJ, 3, 2, 3, 1, GridBagConstraints.HORIZONTAL);
+		tfNomeFantasia.setPreferredSize(new Dimension(500, 20));
+		addComponent(tfNomeFantasia, 1, 1, 3, 1, GridBagConstraints.WEST);
+//		tfRazaoSocial = new JTextField();
+//		addComponent(tfCNPJ, 2, 2, 3, 1, GridBagConstraints.HORIZONTAL);
+//		tfRua = new JTextField();
+//		addComponent(tfCNPJ, 3, 2, 3, 1, GridBagConstraints.HORIZONTAL);
 		
 		
 		
 		pnCadastro.add(tfCNPJ);
-		pnCadastro.add(tfNomeFantasia);
-		pnCadastro.add(tfRazaoSocial);
-		pnCadastro.add(tfRua);
+//		pnCadastro.add(tfNomeFantasia);
+//		pnCadastro.add(tfRazaoSocial);
+//		pnCadastro.add(tfRua);
 		
 		
 		pnCadastro.setVisible(true);
@@ -81,7 +86,7 @@ public class PessoaView {
         constraints.gridwidth = width;
         constraints.gridheight = height;
         layout.setConstraints(comp, constraints);
-        pnCadastro.add(comp);
+        pnCadastro.add(comp, constraints);
     }
 	
 	public static void main(String[] args) {
