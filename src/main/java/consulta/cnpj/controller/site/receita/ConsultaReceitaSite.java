@@ -2,8 +2,9 @@ package consulta.cnpj.controller.site.receita;
 
 import java.awt.BorderLayout;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -26,11 +27,9 @@ import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
-import org.apache.xalan.xsltc.compiler.sym;
 import org.apache.xerces.impl.dv.util.Base64;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import consulta.cnpj.controller.ConsultaReceita;
 import consulta.cnpj.model.PessoaJuridica;
@@ -52,7 +51,6 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 
 	@Override
 	public PessoaJuridica consulta(String cnpj) {
-
 		configCliente();
 		ReceitaFederalConsulta captcha = getCaptcha();
 		// Dê algum jeito de mostrar isso para o usuário e pegar o retorno
@@ -77,7 +75,6 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 
 	private PessoaJuridica processaResultaConsulta(ReceitaFederalConsulta resultadoConsulta) {
 		String htmlResultaConsulta = resultadoConsulta.getHtmlResultaConsulta();
-		System.out.println(htmlResultaConsulta);
 		Document doc = Jsoup.parse(htmlResultaConsulta, "UTF-8");
 
 		String texto = doc.text();
@@ -178,9 +175,21 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		
 		PessoaJuridica pessoaJuridica = new PessoaJuridica();
 		pessoaJuridica.setCnpj(cnpj.trim());
-		pessoaJuridica.setDataAbertura(null);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			pessoaJuridica.setDataAbertura(formatter.parse(dataAbertura.trim().substring(0, 10)));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		pessoaJuridica.setRazaoSocial(razaoSocial.trim());
-		pessoaJuridica.setRazaoSocial(nomeFantasia.trim());
+		pessoaJuridica.setNomeFantasia(nomeFantasia.trim());
+		pessoaJuridica.setRua(rua.trim());
+		pessoaJuridica.setNumero(numero.trim());
+		pessoaJuridica.setComplemento(complemento.trim());
+		pessoaJuridica.setCep(cep.trim());
+		pessoaJuridica.setBairro(bairro.trim());
+		pessoaJuridica.setMunicipio(municipio.trim());
+		pessoaJuridica.setEstado(uf.trim());
 
 		return pessoaJuridica;
 	}
