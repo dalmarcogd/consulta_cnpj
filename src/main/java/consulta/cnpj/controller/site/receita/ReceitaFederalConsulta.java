@@ -1,6 +1,6 @@
 package consulta.cnpj.controller.site.receita;
 
-import consulta.cnpj.model.Fornecedor;
+import consulta.cnpj.model.PessoaJuridica;
 
 public class ReceitaFederalConsulta {
 
@@ -9,7 +9,7 @@ public class ReceitaFederalConsulta {
 	private String respostaCaptcha;
 	
 	private String htmlResultaConsulta;
-	private Fornecedor fornecedor;
+	private PessoaJuridica fornecedor;
 	
 	public String getCaptchaBase64() {
 		return captchaBase64;
@@ -43,11 +43,11 @@ public class ReceitaFederalConsulta {
 		this.htmlResultaConsulta = htmlResultaConsulta;
 	}
 	
-	public Fornecedor getFornecedor() {
+	public PessoaJuridica getFornecedor() {
 		return fornecedor;
 	}
 	
-	public void setFornecedor(Fornecedor fornecedor) {
+	public void setFornecedor(PessoaJuridica fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 }

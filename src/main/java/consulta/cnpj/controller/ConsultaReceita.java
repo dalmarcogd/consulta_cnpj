@@ -1,8 +1,8 @@
 package consulta.cnpj.controller;
 
-import consulta.cnpj.model.Fornecedor;
+import consulta.cnpj.model.PessoaJuridica;
 
 public interface ConsultaReceita {
 
-	public Fornecedor consulta(String cnpj); 
+	public PessoaJuridica consulta(String cnpj); 
 }

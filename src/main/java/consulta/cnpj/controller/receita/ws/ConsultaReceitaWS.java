@@ -1,7 +1,7 @@
 package consulta.cnpj.controller.receita.ws;
 
 import consulta.cnpj.controller.ConsultaReceita;
-import consulta.cnpj.model.Fornecedor;
+import consulta.cnpj.model.PessoaJuridica;
 
 public class ConsultaReceitaWS implements ConsultaReceita {
 
@@ -9,7 +9,7 @@ public class ConsultaReceitaWS implements ConsultaReceita {
 	}
 
 	@Override
-	public Fornecedor consulta(String cnpj) {
+	public PessoaJuridica consulta(String cnpj) {
 		return null;
 	}
 }

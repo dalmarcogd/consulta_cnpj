@@ -1,9 +1,9 @@
-package consulta.cnpj.controller;
 
+package consulta.cnpj.controller;
 import consulta.cnpj.controller.receita.ws.ConsultaReceitaWS;
 import consulta.cnpj.controller.sefaz.ConsultaReceitaSefaz;
 import consulta.cnpj.controller.site.receita.ConsultaReceitaSite;
-import consulta.cnpj.model.Fornecedor;
+import consulta.cnpj.model.PessoaJuridica;
 
 /**
  * Classe responsável por consultar o CNPJ.
@@ -14,7 +14,7 @@ public final class ConsultaCNPJController {
 	/**
 	 * Realiza a consulta no site do sefaz
 	 */
-	public Fornecedor consultaSefaz(String cnpj, String certificadoDigital, String url) throws Exception {
+	public PessoaJuridica consultaSefaz(String cnpj, String certificadoDigital, String url) throws Exception {
 		ConsultaReceitaSefaz consultaReceitaSite = new ConsultaReceitaSefaz(certificadoDigital);
 		return consultaReceitaSite.consulta(cnpj);
 	}
@@ -22,7 +22,7 @@ public final class ConsultaCNPJController {
 	/**
 	 * Realiza a consulta no site https://receitaws.com.br/
 	 */
-	public Fornecedor consultaReceitaWS(String cnpj) throws Exception {
+	public PessoaJuridica consultaReceitaWS(String cnpj) throws Exception {
 		ConsultaReceitaWS consultaReceitaWS = new ConsultaReceitaWS();
 		return consultaReceitaWS.consulta(cnpj);
 	}
@@ -30,7 +30,7 @@ public final class ConsultaCNPJController {
 	/**
 	 * Realiza a consulta no site da receita.
 	 */
-	public Fornecedor consultaSiteReceita(String cnpj) throws Exception {
+	public PessoaJuridica consultaSiteReceita(String cnpj) throws Exception {
 		ConsultaReceitaSite consultaReceitaSite = new ConsultaReceitaSite();
 		return consultaReceitaSite.consulta(cnpj);
 	}
@@ -41,8 +41,8 @@ public final class ConsultaCNPJController {
 	 * 2 - ReceitaWS, serviço privado.
 	 * 3 - Site da receita porem solicita captcha. 
 	 */
-	public Fornecedor consulta(String cnpj, String certificadoDigital, String url) {
-		Fornecedor consultaFornecedor = null;
+	public PessoaJuridica consulta(String cnpj, String certificadoDigital, String url) {
+		PessoaJuridica consultaFornecedor = null;
 		try {
 			consultaFornecedor = this.consultaSefaz(cnpj, certificadoDigital, url);
 			if (consultaFornecedor != null) {

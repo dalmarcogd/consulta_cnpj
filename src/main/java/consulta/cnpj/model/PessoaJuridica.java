@@ -1,5 +1,7 @@
 package consulta.cnpj.model;
 
+import java.util.Date;
+
 /**
  * Classe que representa o cadastro de pessoa jurídica.
  * 
@@ -12,6 +14,7 @@ public class PessoaJuridica {
 	private String cnpj;
 	private String razaoSocial;
 	private String nomeFantasia;
+	private Date dataAbertura;
 	
 	// Dados do Endereço da pessoa.
 	private String rua;
@@ -44,6 +47,14 @@ public class PessoaJuridica {
 	
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
+	}
+	
+	public Date getDataAbertura() {
+		return dataAbertura;
+	}
+	
+	public void setDataAbertura(Date dataAbertura) {
+		this.dataAbertura = dataAbertura;
 	}
 	
 	public String getRua() {

@@ -1,7 +1,7 @@
 package consulta.cnpj.controller.sefaz;
 
 import consulta.cnpj.controller.ConsultaReceita;
-import consulta.cnpj.model.Fornecedor;
+import consulta.cnpj.model.PessoaJuridica;
 
 public class ConsultaReceitaSefaz implements ConsultaReceita {
 
@@ -9,7 +9,7 @@ public class ConsultaReceitaSefaz implements ConsultaReceita {
 	}
 
 	@Override
-	public Fornecedor consulta(String cnpj) {
+	public PessoaJuridica consulta(String cnpj) {
 		return null;
 	}
 }
