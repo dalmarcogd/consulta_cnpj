@@ -107,7 +107,7 @@ public class PessoaView {
 			public void focusLost(FocusEvent event) {
 				String cnpj = tfCNPJ.getText();
 				try {
-					PessoaJuridica pessoa = getController().consultaSiteReceita(cnpj);
+					PessoaJuridica pessoa = getController().consultaCnpj(cnpj);
 					
 					if (pessoa != null) {
 						taResultado.setText(pessoa.toString());

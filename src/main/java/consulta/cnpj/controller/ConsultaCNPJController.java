@@ -34,6 +34,22 @@ public final class ConsultaCNPJController {
 		ConsultaReceitaSite consultaReceitaSite = new ConsultaReceitaSite();
 		return consultaReceitaSite.consulta(cnpj);
 	}
+
+	/**
+	 * Realiza a consulta no site da receita.
+	 */
+	public PessoaJuridica consultaCnpj(String cnpj) throws Exception {
+		PessoaJuridica pessoa = null;
+//		try {
+//			pessoa = this.consultaSiteReceita(cnpj);
+//		} catch (Exception e) {
+//			pessoa = null;
+//		}
+		if (pessoa == null) {
+			pessoa = this.consultaReceitaWS(cnpj);
+		}
+		return pessoa;
+	}
 	
 	/**
 	 * Realiza todas as consultas até encontrar o fornecedor.
