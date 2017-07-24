@@ -113,5 +113,39 @@ public class PessoaJuridica {
 		this.estado = estado;
 	}
 	
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("CNPJ: ")
+		  .append(this.getCnpj())
+		  .append("\n")
+		  .append("Razão Social: ")
+		  .append(this.getRazaoSocial())
+		  .append("\n")
+		  .append("Nome Fantasia: ")
+		  .append(this.getNomeFantasia())
+		  .append("\n")
+		  .append("Endereço: ")
+		  .append(this.getRua())
+		  .append(", ")
+		  .append(this.getNumero())
+		  .append(" ")
+		  .append(this.getComplemento())
+		  .append("\n")
+		  .append("Bairro: ")
+		  .append(this.getBairro())
+		  .append("\n")
+		  .append("Cidade: ")
+		  .append(this.getMunicipio())
+		  .append("\n")
+		  .append("Estado: ")
+		  .append(this.getEstado())
+		  ;
+		
+		return sb.toString();
+	}
 	
 }

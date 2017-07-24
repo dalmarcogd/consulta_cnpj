@@ -66,7 +66,7 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		frame = null;
 		captcha.setRespostaCaptcha(captchaStr);
 
-		ReceitaFederalConsulta resultadoConsulta = getResultadoConsulta(captcha, cliente, contexto, resposta);
+		ReceitaFederalConsulta resultadoConsulta = getResultadoConsulta(captcha, cliente, contexto, resposta, cnpj);
 
 		PessoaJuridica fornecedor = processaResultaConsulta(resultadoConsulta);
 
@@ -174,7 +174,11 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		
 		
 		PessoaJuridica pessoaJuridica = new PessoaJuridica();
-		pessoaJuridica.setCnpj(cnpj.trim());
+		
+		String cnpjFormat = cnpj.trim();
+		cnpjFormat = cnpjFormat.replaceAll("[^0123456789]", "");
+		
+		pessoaJuridica.setCnpj(cnpjFormat);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			pessoaJuridica.setDataAbertura(formatter.parse(dataAbertura.trim().substring(0, 10)));
@@ -256,7 +260,7 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 	 * Utiliza o captcha e realiza a consulta.
 	 */
 	private ReceitaFederalConsulta getResultadoConsulta(ReceitaFederalConsulta receitaFederalConsulta,
-			HttpClientBuilder cliente, BasicHttpContext contexto, HttpResponse resposta) {
+			HttpClientBuilder cliente, BasicHttpContext contexto, HttpResponse resposta, String cnpj) {
 		try {
 			HttpPost requisicaoConsulta = new HttpPost(
 					"http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/valida.asp");
@@ -265,7 +269,7 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 			// Adicionando os parâmetros
 			nameValuePairs.add(new BasicNameValuePair("origem", "comprovante"));
 			nameValuePairs.add(new BasicNameValuePair("search_type", "cnpj"));
-			nameValuePairs.add(new BasicNameValuePair("cnpj", "82647165001196"));
+			nameValuePairs.add(new BasicNameValuePair("cnpj", cnpj));
 			nameValuePairs.add(new BasicNameValuePair("txtTexto_captcha_serpro_gov_br",
 					receitaFederalConsulta.getRespostaCaptcha().toLowerCase()));
 			nameValuePairs.add(new BasicNameValuePair("submit1", "Consultar"));

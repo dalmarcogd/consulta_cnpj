@@ -5,11 +5,17 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import consulta.cnpj.controller.ConsultaCNPJController;
+import consulta.cnpj.model.PessoaJuridica;
 
 /**
  * @author André Felipe Bürger (andre.burger@publica.inf.br)
@@ -25,9 +31,19 @@ public class PessoaView {
 	private JFrame frCadastro;
 	private JPanel pnCadastro;
 	private JTextField tfCNPJ;
-	private JTextField tfNomeFantasia;
-	private JTextField tfRazaoSocial;
-	private JTextField tfRua;
+	private JTextArea taResultado;
+	
+	private ConsultaCNPJController controller;
+	
+	/**
+	 * @return controller
+	 */
+	public ConsultaCNPJController getController() {
+		if (controller == null) {
+			controller = new ConsultaCNPJController();
+		}
+		return controller;
+	}
 	
 	/**
 	 * 
@@ -51,26 +67,15 @@ public class PessoaView {
 		JLabel lbCNPJ = new JLabel("CNPJ:");
 		addComponent(lbCNPJ, 0, 0, 1, 1, GridBagConstraints.EAST);
 		tfCNPJ = new JTextField();
-		tfCNPJ.setPreferredSize(new Dimension(200, 20));
+		tfCNPJ.setPreferredSize(new Dimension(600, 20));
 		addComponent(tfCNPJ, 0, 1, 3, 1, GridBagConstraints.WEST);
+		addListenerCNPJ();
 		
-		JLabel lbNomeFantasia = new JLabel("Nome fantasia:");
+		JLabel lbNomeFantasia = new JLabel("Resultado:");
 		addComponent(lbNomeFantasia, 1, 0, 1, 1, GridBagConstraints.EAST);
-		tfNomeFantasia = new JTextField();
-		tfNomeFantasia.setPreferredSize(new Dimension(500, 20));
-		addComponent(tfNomeFantasia, 1, 1, 3, 1, GridBagConstraints.WEST);
-//		tfRazaoSocial = new JTextField();
-//		addComponent(tfCNPJ, 2, 2, 3, 1, GridBagConstraints.HORIZONTAL);
-//		tfRua = new JTextField();
-//		addComponent(tfCNPJ, 3, 2, 3, 1, GridBagConstraints.HORIZONTAL);
-		
-		
-		
-		pnCadastro.add(tfCNPJ);
-//		pnCadastro.add(tfNomeFantasia);
-//		pnCadastro.add(tfRazaoSocial);
-//		pnCadastro.add(tfRua);
-		
+		taResultado = new JTextArea();
+		taResultado.setPreferredSize(new Dimension(600, 250));
+		addComponent(taResultado, 1, 1, 3, 1, GridBagConstraints.WEST);
 		
 		pnCadastro.setVisible(true);
 		frCadastro.add(pnCadastro);
@@ -93,4 +98,31 @@ public class PessoaView {
 		new PessoaView();
 	}
 	
+	
+	private void addListenerCNPJ() {
+		tfCNPJ.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent event) {
+				String cnpj = tfCNPJ.getText();
+				try {
+					PessoaJuridica pessoa = getController().consultaSiteReceita(cnpj);
+					
+					if (pessoa != null) {
+						taResultado.setText(pessoa.toString());
+						pnCadastro.repaint();
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// Nada a fazer.
+			}
+		});
+	}
 }
