@@ -1,2 +1,13 @@
 /target/
 *.class
+target/classes/consulta/cnpj/controller/ConsultaCNPJController.class
+target/classes/consulta/cnpj/controller/ConsultaCNPJController.class
+target/classes/consulta/cnpj/controller/ConsultaCNPJController.class
+target/classes/consulta/cnpj/controller/ConsultaReceita.class
+target/classes/consulta/cnpj/controller/receita/ws/ConsultaReceitaWS.class
+target/classes/consulta/cnpj/controller/sefaz/ConsultaReceitaSefaz.class
+target/classes/consulta/cnpj/controller/site/receita/ConsultaReceitaSite.class
+target/classes/consulta/cnpj/controller/site/receita/ReceitaFederalConsulta.class
+target/classes/consulta/cnpj/controller/site/receita/Runner.class
+target/classes/consulta/cnpj/DocumentoHtml.class
+target/classes/consulta/cnpj/Tste.class

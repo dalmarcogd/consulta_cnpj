@@ -10,6 +10,7 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -114,7 +115,7 @@ public class PessoaView {
 					}
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(pnCadastro, "CNPJ não encontrado.");
 				}
 				
 			}
