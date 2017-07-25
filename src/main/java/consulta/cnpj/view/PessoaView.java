@@ -5,9 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,7 +24,7 @@ import consulta.cnpj.controller.ConsultaCNPJController;
 import consulta.cnpj.model.PessoaJuridica;
 
 /**
- * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author AndrÃ© Felipe BÃ¼rger (andre.burger@publica.inf.br)
  *
  */
 public class PessoaView {
@@ -33,6 +38,7 @@ public class PessoaView {
 	private JPanel pnCadastro;
 	private JTextField tfCNPJ;
 	private JTextArea taResultado;
+	private JButton btConsultar;
 	
 	private ConsultaCNPJController controller;
 	
@@ -53,6 +59,7 @@ public class PessoaView {
 		createComponents();
 	}
 	
+	@SuppressWarnings("serial")
 	private void createComponents() {
 		frCadastro = new JFrame("Consulta CNPJ");
 		pnCadastro = new JPanel();
@@ -68,9 +75,34 @@ public class PessoaView {
 		JLabel lbCNPJ = new JLabel("CNPJ:");
 		addComponent(lbCNPJ, 0, 0, 1, 1, GridBagConstraints.EAST);
 		tfCNPJ = new JTextField();
-		tfCNPJ.setPreferredSize(new Dimension(600, 20));
-		addComponent(tfCNPJ, 0, 1, 3, 1, GridBagConstraints.WEST);
-		addListenerCNPJ();
+		tfCNPJ.setPreferredSize(new Dimension(550, 20));
+		addComponent(tfCNPJ, 0, 1, 2, 1, GridBagConstraints.WEST);
+		btConsultar = new JButton();
+		btConsultar.setText("Consultar");
+		btConsultar.setPreferredSize(new Dimension(50, 30));
+		btConsultar.setAction(new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				String cnpj = tfCNPJ.getText();
+				try {
+					PessoaJuridica pessoa = getController().consultaCnpj(cnpj);
+					
+					if (pessoa != null) {
+						taResultado.setText(pessoa.toString());
+						pnCadastro.repaint();
+					}
+					
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(pnCadastro, "CNPJ nï¿½o encontrado.");
+				}
+			}
+		});
+		
+		
+		
+//		addListenerCNPJ();
+		addComponent(btConsultar, 0, 3, 1, 1, GridBagConstraints.WEST);
 		
 		JLabel lbNomeFantasia = new JLabel("Resultado:");
 		addComponent(lbNomeFantasia, 1, 0, 1, 1, GridBagConstraints.EAST);
@@ -115,7 +147,7 @@ public class PessoaView {
 					}
 					
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(pnCadastro, "CNPJ não encontrado.");
+					JOptionPane.showMessageDialog(pnCadastro, "CNPJ nï¿½o encontrado.");
 				}
 				
 			}
