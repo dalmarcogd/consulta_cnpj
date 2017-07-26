@@ -6,7 +6,7 @@ package consulta.cnpj.controller.receita.ws;
  * @author Jeison Dandolini (jeison@publica.inf.br)
  *
  */
-public class CNPJ {
+public class ReceitaWSCNPJ {
 	
 	private String data_situacao;
 	private String complemento;

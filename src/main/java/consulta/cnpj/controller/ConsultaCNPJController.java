@@ -31,7 +31,7 @@ public final class ConsultaCNPJController {
 	/**
 	 * Realiza todas as consultas até encontrar o cadastro.
 	 * 1 - ReceitaWS - serviço privado, porém, não necessita de captcha 
-	 * 2 - Site da receita porem solicita captcha. 
+	 * 2 - Site da receita, porém solicita captcha. 
 	 */
 	public PessoaJuridica consulta(String cnpj) {
 		cnpj = cnpj.replaceAll("[^0123456789]", "");
