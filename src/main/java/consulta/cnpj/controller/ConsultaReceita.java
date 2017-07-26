@@ -4,5 +4,5 @@ import consulta.cnpj.model.PessoaJuridica;
 
 public interface ConsultaReceita {
 
-	public PessoaJuridica consulta(String cnpj); 
+	public PessoaJuridica consulta(String cnpj) throws Exception; 
 }

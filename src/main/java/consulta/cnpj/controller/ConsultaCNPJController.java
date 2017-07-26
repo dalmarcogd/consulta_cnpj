@@ -1,5 +1,7 @@
 
 package consulta.cnpj.controller;
+import javax.swing.JOptionPane;
+
 import consulta.cnpj.controller.receita.ws.ConsultaReceitaWS;
 import consulta.cnpj.controller.sefaz.ConsultaReceitaSefaz;
 import consulta.cnpj.controller.site.receita.ConsultaReceitaSite;
@@ -41,7 +43,7 @@ public final class ConsultaCNPJController {
 	public PessoaJuridica consultaCnpj(String cnpj) throws Exception {
 		PessoaJuridica pessoa = null;
 		try {
-			pessoa = this.consultaReceitaWS(cnpj);			
+//			pessoa = this.consultaReceitaWS(cnpj);			
 		} catch (Exception e) {
 			pessoa = null;
 		}
@@ -49,7 +51,7 @@ public final class ConsultaCNPJController {
 			try {
 				pessoa = this.consultaSiteReceita(cnpj);
 			} catch (Exception e) {
-				pessoa = null;
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Problema", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		return pessoa;

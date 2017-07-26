@@ -47,7 +47,7 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 	private HttpResponse resposta = null;
 
 	@Override
-	public PessoaJuridica consulta(String cnpj) {
+	public PessoaJuridica consulta(String cnpj) throws Exception {
 		configCliente();
 		ReceitaFederalConsulta captcha = getCaptcha();
 		// Dê algum jeito de mostrar isso para o usuário e pegar o retorno
@@ -70,11 +70,14 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		return fornecedor;
 	}
 
-	private PessoaJuridica processaResultaConsulta(ReceitaFederalConsulta resultadoConsulta) {
+	private PessoaJuridica processaResultaConsulta(ReceitaFederalConsulta resultadoConsulta) throws Exception {
 		String htmlResultaConsulta = resultadoConsulta.getHtmlResultaConsulta();
 		Document doc = Jsoup.parse(htmlResultaConsulta, "UTF-8");
 
 		String texto = doc.text();
+		
+		validate(texto);
+		
 		System.out.println(texto);
 		int index = 0;
 		// CNPJ
@@ -195,6 +198,14 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		return pessoaJuridica;
 	}
 
+	private void validate(String texto) throws Exception{
+		if (texto.contains("O nmero do CNPJ no possui 14 dgitos.") || texto.contains("O nmero do CNPJ no vlido.")) {
+			throw new Exception("CNPJ inválido.");
+		} else if (texto.contains("Digite os caracteres acima: Erro na Consulta")) {
+			throw new Exception("Captcha inválido.");
+		}
+	}
+
 	/**
 	 * Configura o cliente para comunicação.
 	 */
@@ -221,8 +232,9 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 
 	/**
 	 * Recupera o captcha para autenticação da consulta.
+	 * @throws Exception 
 	 */
-	private ReceitaFederalConsulta getCaptcha() {
+	private ReceitaFederalConsulta getCaptcha() throws Exception {
 		ReceitaFederalConsulta receitaFederalConsulta = new ReceitaFederalConsulta();
 		try {
 			// Criando o método de acesso
@@ -248,16 +260,17 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 			receitaFederalConsulta.setCaptchaBase64(captchaBase64);
 			receitaFederalConsulta.setCaptcha(captcha);
 		} catch (Exception e) {
-			System.err.println(e);
+			throw new Exception("Erro ao solicitar o captch, tente novamente.");
 		}
 		return receitaFederalConsulta;
 	}
 
 	/**
 	 * Utiliza o captcha e realiza a consulta.
+	 * @throws Exception 
 	 */
 	private ReceitaFederalConsulta getResultadoConsulta(ReceitaFederalConsulta receitaFederalConsulta,
-			HttpClientBuilder cliente, BasicHttpContext contexto, HttpResponse resposta, String cnpj) {
+			HttpClientBuilder cliente, BasicHttpContext contexto, HttpResponse resposta, String cnpj) throws Exception {
 		try {
 			HttpPost requisicaoConsulta = new HttpPost(
 					"http://www.receita.fazenda.gov.br/pessoajuridica/cnpj/cnpjreva/valida.asp");
@@ -282,9 +295,8 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 			String html = EntityUtils.toString(entidade);
 
 			receitaFederalConsulta.setHtmlResultaConsulta(html);
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new Exception("Erro ao consultar o CNPJ, tente novamente.");
 		}
 		return receitaFederalConsulta;
 	}
