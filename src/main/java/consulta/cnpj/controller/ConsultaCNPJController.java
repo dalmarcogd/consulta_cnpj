@@ -40,13 +40,17 @@ public final class ConsultaCNPJController {
 	 */
 	public PessoaJuridica consultaCnpj(String cnpj) throws Exception {
 		PessoaJuridica pessoa = null;
-//		try {
-//			pessoa = this.consultaSiteReceita(cnpj);
-//		} catch (Exception e) {
-//			pessoa = null;
-//		}
+		try {
+			pessoa = this.consultaReceitaWS(cnpj);			
+		} catch (Exception e) {
+			pessoa = null;
+		}
 		if (pessoa == null) {
-			pessoa = this.consultaReceitaWS(cnpj);
+			try {
+				pessoa = this.consultaSiteReceita(cnpj);
+			} catch (Exception e) {
+				pessoa = null;
+			}
 		}
 		return pessoa;
 	}

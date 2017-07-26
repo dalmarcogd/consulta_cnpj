@@ -9,8 +9,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import com.google.gson.Gson;
 
 import consulta.cnpj.controller.ConsultaReceita;
@@ -22,7 +20,6 @@ public class ConsultaReceitaWS implements ConsultaReceita {
 	public PessoaJuridica consulta(String cnpj) {
 		try {
 
-//			URL url = new URL("http://www.receitaws.com.br/v1/cnpj/82647165001196");
 			URL url = new URL("http://www.receitaws.com.br/v1/cnpj/" + cnpj);
 			
 			InputStream is = url.openConnection().getInputStream();

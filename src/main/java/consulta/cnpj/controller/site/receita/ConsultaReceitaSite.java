@@ -41,13 +41,10 @@ import consulta.cnpj.model.PessoaJuridica;
  */
 public class ConsultaReceitaSite implements ConsultaReceita {
 
-	HttpClientBuilder cliente = null;
-	BasicCookieStore cookie = null;
-	BasicHttpContext contexto = null;
-	HttpResponse resposta = null;
-
-	public ConsultaReceitaSite() {
-	}
+	private HttpClientBuilder cliente = null;
+	private BasicCookieStore cookie = null;
+	private BasicHttpContext contexto = null;
+	private HttpResponse resposta = null;
 
 	@Override
 	public PessoaJuridica consulta(String cnpj) {
@@ -61,7 +58,7 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		frame.pack();
 		frame.setVisible(true);
 		// entrada do texto do captcha
-		String captchaStr = JOptionPane.showInputDialog("Digite o captcha");
+		String captchaStr = JOptionPane.showInputDialog(frame, "Digite o captcha");
 		frame.setVisible(false);
 		frame = null;
 		captcha.setRespostaCaptcha(captchaStr);

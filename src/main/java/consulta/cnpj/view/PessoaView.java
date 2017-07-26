@@ -24,8 +24,9 @@ import consulta.cnpj.controller.ConsultaCNPJController;
 import consulta.cnpj.model.PessoaJuridica;
 
 /**
+ * Formul�rio de consulta.
+ * 
  * @author André Felipe Bürger (andre.burger@publica.inf.br)
- *
  */
 public class PessoaView {
 
@@ -52,9 +53,6 @@ public class PessoaView {
 		return controller;
 	}
 	
-	/**
-	 * 
-	 */
 	public PessoaView() {
 		createComponents();
 	}
@@ -77,9 +75,10 @@ public class PessoaView {
 		tfCNPJ = new JTextField();
 		tfCNPJ.setPreferredSize(new Dimension(550, 20));
 		addComponent(tfCNPJ, 0, 1, 2, 1, GridBagConstraints.WEST);
-		btConsultar = new JButton();
+		btConsultar = new JButton("Consultar");
 		btConsultar.setText("Consultar");
-		btConsultar.setPreferredSize(new Dimension(50, 30));
+		btConsultar.setPreferredSize(new Dimension(60, 40));
+		btConsultar.repaint();
 		btConsultar.setAction(new AbstractAction() {
 			
 			@Override
@@ -99,8 +98,6 @@ public class PessoaView {
 			}
 		});
 		
-		
-		
 //		addListenerCNPJ();
 		addComponent(btConsultar, 0, 3, 1, 1, GridBagConstraints.WEST);
 		
@@ -115,6 +112,7 @@ public class PessoaView {
 		frCadastro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frCadastro.pack();
 		frCadastro.setVisible(true);
+		frCadastro.setResizable(false);
 	}
 	
 	private void addComponent(Component comp, int row, int column, int width, int height, int fill){

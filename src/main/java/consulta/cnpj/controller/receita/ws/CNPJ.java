@@ -1,7 +1,5 @@
 package consulta.cnpj.controller.receita.ws;
 
-import java.util.Date;
-
 public class CNPJ {
 	
 	private String data_situacao;
