@@ -6,12 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +22,9 @@ import consulta.cnpj.model.PessoaJuridica;
 /**
  * Formulário de consulta.
  * 
- * @author AndrÃ© Felipe BÃ¼rger (andre.burger@publica.inf.br)
+ * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author Guilherme Dalmarco (guilherme.dalmarco@publica.inf.br)
+ * @author Jeison Dandolini (jeison@publica.inf.br)
  */
 public class PessoaView {
 
@@ -73,16 +71,17 @@ public class PessoaView {
 		JLabel lbCNPJ = new JLabel("CNPJ:");
 		addComponent(lbCNPJ, 0, 0, 1, 1, GridBagConstraints.EAST);
 		tfCNPJ = new JTextField();
-		tfCNPJ.setPreferredSize(new Dimension(550, 20));
+		tfCNPJ.setPreferredSize(new Dimension(500, 20));
 		addComponent(tfCNPJ, 0, 1, 2, 1, GridBagConstraints.WEST);
 		btConsultar = new JButton("Consultar");
-		btConsultar.setPreferredSize(new Dimension(60, 40));
+		btConsultar.setPreferredSize(new Dimension(100, 20));
 		btConsultar.repaint();
-		btConsultar.setAction(new AbstractAction() {
+		btConsultar.setAction(new AbstractAction("Consultar") {
 			
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				String cnpj = tfCNPJ.getText();
+				cnpj = cnpj.replaceAll("[^0123456789]", "");
 				try {
 					PessoaJuridica pessoa = getController().consulta(cnpj);
 					
@@ -92,7 +91,7 @@ public class PessoaView {
 					}
 					
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(pnCadastro, "CNPJ nï¿½o encontrado.");
+					JOptionPane.showMessageDialog(pnCadastro, "CNPJ não encontrado.");
 				}
 			}
 		});

@@ -7,6 +7,8 @@ import java.util.Date;
  * Classe que representa o cadastro de pessoa jurídica.
  * 
  * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author Guilherme Dalmarco (guilherme.dalmarco@publica.inf.br)
+ * @author Jeison Dandolini (jeison@publica.inf.br)
  *
  */
 public class PessoaJuridica {

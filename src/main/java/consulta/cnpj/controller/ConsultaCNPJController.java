@@ -8,6 +8,10 @@ import consulta.cnpj.model.PessoaJuridica;
 
 /**
  * Classe responsável por consultar o CNPJ.
+ * 
+ * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author Guilherme Dalmarco (guilherme.dalmarco@publica.inf.br)
+ * @author Jeison Dandolini (jeison@publica.inf.br)
  *  
  */
 public final class ConsultaCNPJController {

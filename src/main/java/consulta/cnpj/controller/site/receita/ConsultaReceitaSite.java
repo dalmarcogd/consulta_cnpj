@@ -1,7 +1,6 @@
 package consulta.cnpj.controller.site.receita;
 
 import java.awt.BorderLayout;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +36,9 @@ import consulta.cnpj.model.PessoaJuridica;
 /**
  * Classe de consulta do CNPJ no site da receita.
  * 
- * @author guilherme.dalmarco
+ * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author Guilherme Dalmarco (guilherme.dalmarco@publica.inf.br)
+ * @author Jeison Dandolini (jeison@publica.inf.br)
  */
 public class ConsultaReceitaSite implements ConsultaReceita {
 

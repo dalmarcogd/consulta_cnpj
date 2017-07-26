@@ -3,6 +3,8 @@ package consulta.cnpj.controller.receita.ws;
 /**
  * Classe responsável por manter os dados da pessoa, referente ao resultado de pesquisa no site receitaws
  * 
+ * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author Guilherme Dalmarco (guilherme.dalmarco@publica.inf.br)
  * @author Jeison Dandolini (jeison@publica.inf.br)
  *
  */

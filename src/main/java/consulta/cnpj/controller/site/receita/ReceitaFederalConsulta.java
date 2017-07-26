@@ -5,6 +5,8 @@ import consulta.cnpj.model.PessoaJuridica;
 /**
  * Classe responsável por manter os dados de comunicação com o site da receita
  * 
+ * @author André Felipe Bürger (andre.burger@publica.inf.br)
+ * @author Guilherme Dalmarco (guilherme.dalmarco@publica.inf.br)
  * @author Jeison Dandolini (jeison@publica.inf.br)
  *
  */
