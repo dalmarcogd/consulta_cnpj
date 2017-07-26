@@ -76,7 +76,6 @@ public class PessoaView {
 		tfCNPJ.setPreferredSize(new Dimension(550, 20));
 		addComponent(tfCNPJ, 0, 1, 2, 1, GridBagConstraints.WEST);
 		btConsultar = new JButton("Consultar");
-		btConsultar.setText("Consultar");
 		btConsultar.setPreferredSize(new Dimension(60, 40));
 		btConsultar.repaint();
 		btConsultar.setAction(new AbstractAction() {
@@ -85,7 +84,7 @@ public class PessoaView {
 			public void actionPerformed(ActionEvent event) {
 				String cnpj = tfCNPJ.getText();
 				try {
-					PessoaJuridica pessoa = getController().consultaCnpj(cnpj);
+					PessoaJuridica pessoa = getController().consulta(cnpj);
 					
 					if (pessoa != null) {
 						taResultado.setText(pessoa.toString());
@@ -98,7 +97,6 @@ public class PessoaView {
 			}
 		});
 		
-//		addListenerCNPJ();
 		addComponent(btConsultar, 0, 3, 1, 1, GridBagConstraints.WEST);
 		
 		JLabel lbNomeFantasia = new JLabel("Resultado:");
@@ -129,31 +127,4 @@ public class PessoaView {
 		new PessoaView();
 	}
 	
-	
-	private void addListenerCNPJ() {
-		tfCNPJ.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusLost(FocusEvent event) {
-				String cnpj = tfCNPJ.getText();
-				try {
-					PessoaJuridica pessoa = getController().consultaCnpj(cnpj);
-					
-					if (pessoa != null) {
-						taResultado.setText(pessoa.toString());
-						pnCadastro.repaint();
-					}
-					
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(pnCadastro, "CNPJ n�o encontrado.");
-				}
-				
-			}
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				// Nada a fazer.
-			}
-		});
-	}
 }

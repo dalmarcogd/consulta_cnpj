@@ -35,7 +35,7 @@ import consulta.cnpj.controller.ConsultaReceita;
 import consulta.cnpj.model.PessoaJuridica;
 
 /**
- * Classe de consulta da receita.
+ * Classe de consulta do CNPJ no site da receita.
  * 
  * @author guilherme.dalmarco
  */
@@ -50,9 +50,8 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 	public PessoaJuridica consulta(String cnpj) throws Exception {
 		configCliente();
 		ReceitaFederalConsulta captcha = getCaptcha();
-		// Dê algum jeito de mostrar isso para o usuário e pegar o retorno
 		JFrame frame = new JFrame();
-		// Esse código CRIA A IMAGEM DO CAPTCHA
+		// CRIA A IMAGEM DO CAPTCHA
 		JLabel label = new JLabel(new ImageIcon(captcha.getCaptcha()));
 		frame.getContentPane().add(label, BorderLayout.CENTER);
 		frame.pack();
@@ -70,6 +69,13 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		return fornecedor;
 	}
 
+	/**
+	 * Processa o resultado da consulta vindo do site da receita
+	 * 
+	 * @param resultadoConsulta
+	 * @return
+	 * @throws Exception
+	 */
 	private PessoaJuridica processaResultaConsulta(ReceitaFederalConsulta resultadoConsulta) throws Exception {
 		String htmlResultaConsulta = resultadoConsulta.getHtmlResultaConsulta();
 		Document doc = Jsoup.parse(htmlResultaConsulta, "UTF-8");
@@ -198,6 +204,11 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		return pessoaJuridica;
 	}
 
+	/**
+	 * Verifica o texto vindo do site da receita e reporta o erro tratado para o usuário
+	 * @param texto
+	 * @throws Exception
+	 */
 	private void validate(String texto) throws Exception{
 		if (texto.contains("O nmero do CNPJ no possui 14 dgitos.") || texto.contains("O nmero do CNPJ no vlido.")) {
 			throw new Exception("CNPJ inválido.");

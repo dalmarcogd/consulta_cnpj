@@ -2,6 +2,12 @@ package consulta.cnpj.controller.site.receita;
 
 import consulta.cnpj.model.PessoaJuridica;
 
+/**
+ * Classe responsável por manter os dados de comunicação com o site da receita
+ * 
+ * @author Jeison Dandolini (jeison@publica.inf.br)
+ *
+ */
 public class ReceitaFederalConsulta {
 
 	private String captchaBase64;

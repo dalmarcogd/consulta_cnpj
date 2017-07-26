@@ -1,5 +1,11 @@
 package consulta.cnpj.controller.receita.ws;
 
+/**
+ * Classe responsável por manter os dados da pessoa, referente ao resultado de pesquisa no site receitaws
+ * 
+ * @author Jeison Dandolini (jeison@publica.inf.br)
+ *
+ */
 public class CNPJ {
 	
 	private String data_situacao;
