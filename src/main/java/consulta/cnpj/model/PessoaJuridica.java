@@ -1,5 +1,6 @@
 package consulta.cnpj.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +16,8 @@ public class PessoaJuridica {
 	private String razaoSocial;
 	private String nomeFantasia;
 	private Date dataAbertura;
+	private String enderecoEletronico;
+	private String telefone;
 	
 	// Dados do Endereço da pessoa.
 	private String rua;
@@ -113,6 +116,22 @@ public class PessoaJuridica {
 		this.estado = estado;
 	}
 	
+	public String getEnderecoEletronico() {
+		return enderecoEletronico;
+	}
+
+	public void setEnderecoEletronico(String enderecoEletronico) {
+		this.enderecoEletronico = enderecoEletronico;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
 	/** 
 	 * {@inheritDoc}
 	 */
@@ -121,6 +140,9 @@ public class PessoaJuridica {
 		StringBuilder sb = new StringBuilder();
 		sb.append("CNPJ: ")
 		  .append(this.getCnpj())
+		  .append("\n")
+		  .append("Data de abertura: ")
+		  .append(new SimpleDateFormat("dd/MM/yyyy").format(this.getDataAbertura()))
 		  .append("\n")
 		  .append("Razão Social: ")
 		  .append(this.getRazaoSocial())
@@ -135,6 +157,9 @@ public class PessoaJuridica {
 		  .append(" ")
 		  .append(this.getComplemento())
 		  .append("\n")
+		  .append("Cep: ")
+		  .append(this.getCep())
+		  .append("\n")
 		  .append("Bairro: ")
 		  .append(this.getBairro())
 		  .append("\n")
@@ -143,6 +168,12 @@ public class PessoaJuridica {
 		  .append("\n")
 		  .append("Estado: ")
 		  .append(this.getEstado())
+		  .append("\n")
+		  .append("Endereço eletrônico: ")
+		  .append(this.getEnderecoEletronico())
+		  .append("\n")
+		  .append("Telefone: ")
+		  .append(this.getTelefone())
 		  ;
 		
 		return sb.toString();

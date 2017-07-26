@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,6 +51,8 @@ public class ConsultaReceitaWS implements ConsultaReceita {
 		pessoa.setNumero(obj.getNumero());
 		pessoa.setRazaoSocial(obj.getNome());
 		pessoa.setRua(obj.getLogradouro());
+		pessoa.setEnderecoEletronico(obj.getEmail());
+		pessoa.setTelefone(obj.getTelefone());
 		
 		return pessoa;
 	}

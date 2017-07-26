@@ -200,6 +200,8 @@ public class ConsultaReceitaSite implements ConsultaReceita {
 		pessoaJuridica.setBairro(bairro.trim());
 		pessoaJuridica.setMunicipio(municipio.trim());
 		pessoaJuridica.setEstado(uf.trim());
+		pessoaJuridica.setEnderecoEletronico(enderecoEletronico);
+		pessoaJuridica.setTelefone(telefone);
 
 		return pessoaJuridica;
 	}

@@ -34,6 +34,8 @@ public final class ConsultaCNPJController {
 	 * 2 - Site da receita porem solicita captcha. 
 	 */
 	public PessoaJuridica consulta(String cnpj) {
+		cnpj = cnpj.replaceAll("[^0123456789]", "");
+		
 		try {
 			PessoaJuridica consultaPessoa = this.consultaReceitaWS(cnpj);
 			if (consultaPessoa != null) {
