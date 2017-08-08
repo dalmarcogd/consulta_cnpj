@@ -1,5 +1,6 @@
 # consulta_cnpj
 É um protótipo desenvolvido em java para consulta de CNPJ.<br>
+<b>Protótipo open source foi desenvolvido por conta de um desafio proposto pela empresa <i>Pública Tecnologia Ltda.</i></b><br>
 
 # Consulta
 1 - É realizado uma consulta no https://receitaws.com.br/ que é um serviço privado que disponibiliza consulta de cnpj.<br>
